@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-grid">
+  <section class="intro">
+    <h1>Un partiel blanc écrit pour vous, à chaque visite.</h1>
+    <p class="lead">Choisissez votre UE : l'IA rédige 40 questions neuves, chronométrées, puis corrige tout à la fin.</p>
+    <ul class="levels" aria-label="Les trois niveaux de difficulté">
+      <li class="lvl-moyen"><strong>Moyen</strong><span>10 questions · 1 min chacune</span></li>
+      <li class="lvl-difficile"><strong>Difficile</strong><span>15 questions · 1 min 30 chacune</span></li>
+      <li class="lvl-extreme"><strong>Extrêmement difficile</strong><span>15 questions · 2 min chacune</span></li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="on" data-mode="register" aria-selected="true">Inscription</button>
+      <button type="button" role="tab" data-mode="login" aria-selected="false">Connexion</button>
+    </div>
+    <form id="auth-form" novalidate>
+      <label class="field">Nom
+        <input name="nom" autocomplete="family-name" required>
+      </label>
+      <label class="field">Prénom
+        <input name="prenom" autocomplete="given-name" required>
+      </label>
+      <label class="field">Niveau
+        <select name="niveau" required>
+          <option value="" disabled selected>Choisir…</option>
+          {% for n in niveaux %}<option>{{ n }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="field">Matricule
+        <input name="matricule" autocomplete="off" autocapitalize="characters" required>
+      </label>
+      <p id="auth-hint" class="hint">Votre matricule est unique : il sert à retrouver vos QCM.</p>
+      <p id="auth-error" class="error" role="alert" hidden></p>
+      <button id="submit" class="btn primary" type="submit">Créer mon compte</button>
+    </form>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/auth.js') }}"></script>{% endblock %}

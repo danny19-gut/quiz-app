@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Choisir une UE{% endblock %}
+{% block content %}
+<div class="ue-grid">
+  <section class="panel">
+    <h1>Bonjour <span id="prenom">{{ student['prenom'] }}</span>.</h1>
+    {% set chiffre = {'Licence 1': '1', 'Licence 2': '2', 'Licence 3': '3'}.get(student['niveau']) %}
+    <p class="lead">Quelle UE et quel chapitre voulez-vous réviser ?</p>
+    <form id="ue-form">
+      <label class="field">Code de l'UE
+        <input id="code" name="code" placeholder="{{ 'ex. INF ' ~ chiffre ~ '31' if chiffre else 'ex. INF 531' }}" required maxlength="20" autocomplete="off">
+        <small>{% if chiffre %}En {{ student['niveau'] }}, le code a trois chiffres et commence par {{ chiffre }}.{% else %}Le code de l'UE a trois chiffres.{% endif %}</small>
+      </label>
+      <label class="field">Titre de l'UE
+        <input id="titre" name="titre" placeholder="ex. Algorithmique et structures de données" required maxlength="120" autocomplete="off">
+      </label>
+      <label class="field">Chapitre à étudier
+        <textarea id="chapitres" name="chapitres" rows="3" maxlength="600" required
+          placeholder="ex. Chapitre 3 : les arbres binaires et le parcours d'arbres"></textarea>
+      </label>
+      <div id="chips" class="chips" hidden></div>
+      <p id="ue-error" class="error" role="alert" hidden></p>
+      <button id="go" class="btn primary" type="submit">Générer mes 40 questions</button>
+      <p class="hint">Les questions sont écrites par l'IA sur ce chapitre. Chaque génération donne de nouvelles questions.</p>
+    </form>
+  </section>
+
+  <section>
+    <h2>Mes QCM</h2>
+    <ul id="history" class="history"><li class="empty">Aucun QCM pour l'instant.</li></ul>
+  </section>
+</div>
+
+<div id="overlay" class="overlay" hidden>
+  <div class="overlay-box" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <h2>Rédaction de votre QCM</h2>
+    <p id="overlay-step">Analyse de l'UE…</p>
+    <p class="hint">Comptez 30 à 60 secondes. Ne fermez pas la page.</p>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/ue.js') }}"></script>{% endblock %}

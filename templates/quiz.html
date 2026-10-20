@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}QCM · Examen blanc{% endblock %}
+{% block bodyattrs %}data-quiz-id="{{ quiz_id }}"{% endblock %}
+{% block content %}
+<div id="strip" class="strip" aria-hidden="true"></div>
+
+<section id="briefing" class="panel narrow" hidden>
+  <h1 id="b-title">QCM prêt</h1>
+  <ul class="rules">
+    <li>40 questions, du moyen à l'extrêmement difficile.</li>
+    <li>Chaque question a son propre temps : 1 min, 1 min 30 ou 2 min.</li>
+    <li>Vous pouvez changer de réponse jusqu'à la fin du temps. La question suivante arrive d'elle-même.</li>
+    <li>Une question sans réponse est comptée comme ratée. Impossible de revenir en arrière.</li>
+  </ul>
+  <button id="begin" class="btn primary" type="button">Commencer le QCM</button>
+</section>
+
+<section id="question" class="qpanel" hidden>
+  <div class="qhead">
+    <span id="q-count" class="count"></span>
+    <span id="q-level" class="badge"></span>
+    <div id="timer" class="timer"><span id="timer-text">0:00</span></div>
+  </div>
+  <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+  <h2 id="q-text" class="qtext"></h2>
+  <div id="opts" class="opts" role="radiogroup" aria-label="Propositions"></div>
+  <p id="saved" class="hint">Choisissez une réponse (touches A à D du clavier).</p>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>{% endblock %}

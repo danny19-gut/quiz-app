@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Pétit quiz pour réviser{% endblock %}
+{% block bodyattrs %}data-quiz-id="{{ quiz_id }}"{% endblock %}
+{% block content %}
+<section id="summary" class="panel narrow" hidden>
+  <p id="r-ue" class="hint"></p>
+  <p class="score"><strong id="r-score">0</strong><span id="r-total">/ 40</span></p>
+  <p class="lead">bonnes réponses</p>
+  <div id="r-strip" class="strip"></div>
+  <dl class="stats">
+    <div class="ok"><dt>Trouvées</dt><dd id="r-ok">0</dd></div>
+    <div class="ko"><dt>Ratées</dt><dd id="r-ko">0</dd></div>
+    <div class="none"><dt>Sans réponse</dt><dd id="r-none">0</dd></div>
+  </dl>
+  <div class="actions">
+    <button id="show-corr" class="btn primary" type="button">Voir la correction</button>
+    <a class="btn" href="/ue">Nouveau QCM</a>
+  </div>
+</section>
+
+<section id="correction" hidden>
+  <div class="filters" role="tablist">
+    <button class="on" data-f="all" type="button">Toutes</button>
+    <button data-f="ko" type="button">Ratées</button>
+    <button data-f="ok" type="button">Trouvées</button>
+  </div>
+  <ol id="corr-list" class="corr"></ol>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/resultat.js') }}"></script>{% endblock %}

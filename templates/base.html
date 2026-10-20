@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Examen blanc{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body {% block bodyattrs %}{% endblock %}>
+  <header class="topbar">
+    <a class="brand" href="/">Examen blanc</a>
+    {% if student %}
+    <div class="who">
+      <span>{{ student['prenom'] }} {{ student['nom'] }}</span>
+      <button id="logout" class="link" type="button">Se déconnecter</button>
+    </div>
+    {% endif %}
+  </header>
+  <main class="wrap">{% block content %}{% endblock %}</main>
+  <div id="toasts" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
